@@ -10,14 +10,14 @@ namespace Lab1
     public class Fighter : Plane
     {
 
-        public bool FrontSpoiler { private set; get; }
+        public bool FrontWild { private set; get; }
         public bool Signs { private set; get; }
         public bool Signs2 { private set; get; }
 
         public Fighter(int maxSpeed, float weight, Color mainColor, Color dopColor, bool
-       frontSpoiler, bool middleSpoiler, bool backSpoiler, bool signs, bool signs2) : base(maxSpeed, weight, mainColor, middleSpoiler, backSpoiler)
+       frontWild, bool middleWild, bool backWild, bool signs, bool signs2) : base(maxSpeed, weight, mainColor, middleWild, backWild)
         {
-            FrontSpoiler = frontSpoiler;
+            FrontWild = frontWild;
             Signs = signs;
             Signs2 = signs2;
         }
@@ -32,7 +32,7 @@ namespace Lab1
             Pen pen_3 = new Pen(MainColor, 3);
             Brush brush = new SolidBrush(Color.Red);
 
-            if (FrontSpoiler)
+            if (FrontWild)
             {
                 g.DrawLine(pen_18, _startPosX + 46, _startPosY, _startPosX + 55, _startPosY + 10);
                 g.DrawLine(pen_18, _startPosX + 46, _startPosY, _startPosX + 55, _startPosY - 10);

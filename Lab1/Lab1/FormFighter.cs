@@ -35,7 +35,7 @@ namespace Lab1
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void buttonCreate_Click(object sender, EventArgs e)
+        private void buttonCreateFighter_Click(object sender, EventArgs e)
         {
             Random rnd = new Random();
             fighter = new Fighter (rnd.Next(300, 500), rnd.Next(1000, 2000), Color.Black, Color.Gray, true, true, true, true, true);
@@ -44,7 +44,7 @@ namespace Lab1
             Draw();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void buttonCreateWarPlaner_Click(object sender, EventArgs e)
         {
             Random rnd = new Random();
             fighter = new Plane(rnd.Next(300, 500), rnd.Next(1000, 2000), Color.Green, true, true);

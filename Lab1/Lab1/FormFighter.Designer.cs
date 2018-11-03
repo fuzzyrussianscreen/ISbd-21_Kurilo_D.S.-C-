@@ -28,25 +28,25 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.buttonCreate = new System.Windows.Forms.Button();
+            this.buttonCreateFighter = new System.Windows.Forms.Button();
             this.buttonDown = new System.Windows.Forms.Button();
             this.buttonLeft = new System.Windows.Forms.Button();
             this.buttonUp = new System.Windows.Forms.Button();
             this.buttonRight = new System.Windows.Forms.Button();
             this.pictureBoxFighter = new System.Windows.Forms.PictureBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.buttonCreateWarPlaner = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFighter)).BeginInit();
             this.SuspendLayout();
             // 
-            // buttonCreate
+            // buttonCreateFighter
             // 
-            this.buttonCreate.Location = new System.Drawing.Point(12, 12);
-            this.buttonCreate.Name = "buttonCreate";
-            this.buttonCreate.Size = new System.Drawing.Size(152, 31);
-            this.buttonCreate.TabIndex = 1;
-            this.buttonCreate.Text = "Create Fighter";
-            this.buttonCreate.UseVisualStyleBackColor = true;
-            this.buttonCreate.Click += new System.EventHandler(this.buttonCreate_Click);
+            this.buttonCreateFighter.Location = new System.Drawing.Point(12, 12);
+            this.buttonCreateFighter.Name = "buttonCreateFighter";
+            this.buttonCreateFighter.Size = new System.Drawing.Size(152, 31);
+            this.buttonCreateFighter.TabIndex = 1;
+            this.buttonCreateFighter.Text = "Create Fighter";
+            this.buttonCreateFighter.UseVisualStyleBackColor = true;
+            this.buttonCreateFighter.Click += new System.EventHandler(this.buttonCreateFighter_Click);
             // 
             // buttonDown
             // 
@@ -105,27 +105,27 @@
             this.pictureBoxFighter.TabIndex = 0;
             this.pictureBoxFighter.TabStop = false;
             // 
-            // button1
+            // buttonCreateWarPlaner
             // 
-            this.button1.Location = new System.Drawing.Point(206, 12);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(148, 31);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "Create War Planer";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.buttonCreateWarPlaner.Location = new System.Drawing.Point(206, 12);
+            this.buttonCreateWarPlaner.Name = "buttonCreateWarPlaner";
+            this.buttonCreateWarPlaner.Size = new System.Drawing.Size(148, 31);
+            this.buttonCreateWarPlaner.TabIndex = 6;
+            this.buttonCreateWarPlaner.Text = "Create War Planer";
+            this.buttonCreateWarPlaner.UseVisualStyleBackColor = true;
+            this.buttonCreateWarPlaner.Click += new System.EventHandler(this.buttonCreateWarPlaner_Click);
             // 
             // FormFighter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(882, 453);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.buttonCreateWarPlaner);
             this.Controls.Add(this.buttonUp);
             this.Controls.Add(this.buttonLeft);
             this.Controls.Add(this.buttonDown);
             this.Controls.Add(this.buttonRight);
-            this.Controls.Add(this.buttonCreate);
+            this.Controls.Add(this.buttonCreateFighter);
             this.Controls.Add(this.pictureBoxFighter);
             this.Name = "FormFighter";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -138,12 +138,12 @@
         #endregion
 
         private System.Windows.Forms.PictureBox pictureBoxFighter;
-        private System.Windows.Forms.Button buttonCreate;
+        private System.Windows.Forms.Button buttonCreateFighter;
         private System.Windows.Forms.Button buttonRight;
         private System.Windows.Forms.Button buttonDown;
         private System.Windows.Forms.Button buttonLeft;
         private System.Windows.Forms.Button buttonUp;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button buttonCreateWarPlaner;
     }
 }
 
