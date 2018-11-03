@@ -57,16 +57,16 @@ namespace Lab1
             switch (name)
             {
                 case "buttonUp":
-                    fighter.MoveTransport(Direction.direction.Up);
+                    fighter.MoveTransport(Direction.Up);
                     break;
                 case "buttonDown":
-                    fighter.MoveTransport(Direction.direction.Down);
+                    fighter.MoveTransport(Direction.Down);
                     break;
                 case "buttonLeft":
-                    fighter.MoveTransport(Direction.direction.Left);
+                    fighter.MoveTransport(Direction.Left);
                     break;
                 case "buttonRight":
-                    fighter.MoveTransport(Direction.direction.Right);
+                    fighter.MoveTransport(Direction.Right);
                     break;
             }
             Draw();
