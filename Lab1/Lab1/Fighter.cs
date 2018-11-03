@@ -7,13 +7,7 @@ using System.Drawing;
 
 namespace Lab1
 {
-    public enum Direction
-    {
-        Up,
-        Down,
-        Left,
-        Right
-    }
+    
 
     class Fighter
     {
@@ -67,26 +61,20 @@ namespace Lab1
         public Color DopColor { private set; get; }
 
         /// <summary>
-        /// Признак наличия переднего спойлера
+        /// Признак наличия переднего крыла
         /// </summary>
-        public bool FrontSpoiler { private set; get; }
+        public bool FrontWind { private set; get; }
 
         /// <summary>
-        /// Признак наличия боковых спойлеров
+        /// Признак наличия боковых крыльев
         /// </summary>
-        public bool MiddleSpoiler { private set; get; }
+        public bool MiddleWind { private set; get; }
 
         /// <summary>
-        /// Признак наличия заднего спойлера
+        /// Признак наличия заднего крыла
         /// </summary>
-        public bool BackSpoiler { private set; get; }
-        /// <summary>
-        /// Конструктор
-        /// </summary>
-        /// <param name="maxSpeed">Максимальная скорость</param>
-        /// <param name="weight">Вес </param>
-        /// <param name="middleSpoiler">Признак наличия боковых спойлеров</param>
-        /// <param name="backSpoiler">Признак наличия заднего спойлера</param>
+        public bool BackWind { private set; get; }
+        
         public Fighter(int maxSpeed, float weight, Color mainColor, Color dopColor, bool
        frontSpoiler, bool middleSpoiler, bool backSpoiler)
         {
@@ -94,17 +82,11 @@ namespace Lab1
             Weight = weight;
             MainColor = mainColor;
             DopColor = dopColor;
-            MiddleSpoiler = middleSpoiler;
-            FrontSpoiler = frontSpoiler;
-            BackSpoiler = backSpoiler;
+            MiddleWind = middleSpoiler;
+            FrontWind = frontSpoiler;
+            BackWind = backSpoiler;
         }
-        /// <summary>
-        /// Установка позиции
-        /// </summary>
-        /// <param name="x">Координата X</param>
-        /// <param name="y">Координата Y</param>
-        /// <param name="width">Ширина картинки</param>
-        /// <param name="height">Высота картинки</param>
+        
         public void SetPosition(int x, int y, int width, int height)
         {
             _startPosX = x;
@@ -116,34 +98,34 @@ namespace Lab1
         /// Изменение направления пермещения
         /// </summary>
         /// <param name="direction">Направление</param>
-        public void MoveTransport(Direction direction)
+        public void MoveTransport(Direction.direction direction)
         {
             float step = MaxSpeed * 100 / Weight;
             switch (direction)
             {
                 // вправо
-                case Direction.Right:
+                case Direction.direction.Right:
                     if (_startPosX + step < _pictureWidth - carWidth)
                     {
                         _startPosX += step;
                     }
                     break;
                 //влево
-                case Direction.Left:
+                case Direction.direction.Left:
                     if (_startPosX - step > 0)
                     {
                         _startPosX -= step;
                     }
                     break;
                 //вверх
-                case Direction.Up:
+                case Direction.direction.Up:
                     if (_startPosY - step > 0)
                     {
                         _startPosY -= step;
                     }
                     break;
                 //вниз
-                case Direction.Down:
+                case Direction.direction.Down:
                     if (_startPosY + step < _pictureHeight - carHeight)
                     {
                         _startPosY += step;
@@ -166,7 +148,7 @@ namespace Lab1
 
             Brush spoiler = new SolidBrush(Color.Black);
             
-            if (BackSpoiler)
+            if (BackWind)
             {
                 g.DrawLine(pen_9, _startPosX + 31, _startPosY - 24, _startPosX + 31, _startPosY + 24);
 
@@ -177,7 +159,7 @@ namespace Lab1
                 g.DrawLine(pen_8, _startPosX + 14, _startPosY + 5, _startPosX, _startPosY + 20);
             }
 
-            if (MiddleSpoiler)
+            if (MiddleWind)
             {
                 g.DrawLine(pen_8, _startPosX + 24, _startPosY - 5, _startPosX + 22, _startPosY - 50);
                 g.DrawLine(pen_8, _startPosX + 40, _startPosY - 5, _startPosX + 22, _startPosY - 50);
@@ -194,7 +176,7 @@ namespace Lab1
             g.DrawLine(pen_6, _startPosX + 79, _startPosY - 3, _startPosX + 100, _startPosY);
             g.DrawLine(pen_6, _startPosX + 79, _startPosY + 3, _startPosX + 100, _startPosY);
 
-            if (FrontSpoiler)
+            if (FrontWind)
             {
                 g.DrawLine(pen_5, _startPosX + 100, _startPosY, _startPosX + 110, _startPosY);
             }
