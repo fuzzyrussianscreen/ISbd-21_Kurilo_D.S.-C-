@@ -20,6 +20,7 @@ namespace Lab1
             FrontWild = frontWild;
             Signs = signs;
             Signs2 = signs2;
+            DopColor = dopColor;
         }
 
         public override void DrawFighter(Graphics g)
@@ -30,7 +31,7 @@ namespace Lab1
             Pen pen_9 = new Pen(MainColor, 10);
             Pen pen_6 = new Pen(MainColor, 6);
             Pen pen_3 = new Pen(MainColor, 3);
-            Brush brush = new SolidBrush(Color.Red);
+            Brush brush = new SolidBrush(DopColor);
 
             if (FrontWild)
             {
