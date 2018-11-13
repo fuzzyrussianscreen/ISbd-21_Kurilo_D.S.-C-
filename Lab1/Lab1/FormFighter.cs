@@ -10,13 +10,15 @@ using System.Windows.Forms;
 
 namespace Lab1
 {
-    public partial class FormFighter : Form
+    public partial class FormHangar : Form
     {
-        private IAircraft fighter;
+        Hangar<IAircraft> hangar;
 
-        public FormFighter()
+        public FormHangar()
         {
             InitializeComponent();
+            hangar = new Hangar<IAircraft>(16, pictureBoxHangar.Width, pictureBoxHangar.Height);
+            Draw();
         }
 
         /// <summary>
@@ -24,10 +26,10 @@ namespace Lab1
         /// </summary>
         private void Draw()
         {
-            Bitmap bmp = new Bitmap(pictureBoxFighter.Width, pictureBoxFighter.Height);
+            Bitmap bmp = new Bitmap(pictureBoxHangar.Width, pictureBoxHangar.Height);
             Graphics gr = Graphics.FromImage(bmp);
-            fighter.DrawFighter(gr);
-            pictureBoxFighter.Image = bmp;
+            hangar.Draw(gr);
+            pictureBoxHangar.Image = bmp;
         }
 
         /// <summary>
@@ -37,48 +39,52 @@ namespace Lab1
         /// <param name="e"></param>
         private void buttonCreateFighter_Click(object sender, EventArgs e)
         {
-            Random rnd = new Random();
-            fighter = new Fighter (rnd.Next(300, 500), rnd.Next(1000, 2000), Color.Black, Color.Gray, true, true, true, true, true);
-            fighter.SetPosition(rnd.Next(50, 150), rnd.Next(50, 150), pictureBoxFighter.Width,
-           pictureBoxFighter.Height);
-            Draw();
+            ColorDialog dialog = new ColorDialog();
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                ColorDialog dialogDop = new ColorDialog();
+                if (dialogDop.ShowDialog() == DialogResult.OK)
+                {
+                    var fighter = new Fighter(11000, 2450, dialog.Color, dialogDop.Color, true, true, true, true, true);
+                    int place = hangar + fighter;
+
+                    Draw();
+                }
+            }
         }
 
         private void buttonCreateWarPlaner_Click(object sender, EventArgs e)
         {
-            Random rnd = new Random();
-            fighter = new Plane(rnd.Next(300, 500), rnd.Next(1000, 2000), Color.Green, true, true);
-            fighter.SetPosition(rnd.Next(50, 150), rnd.Next(50, 150), pictureBoxFighter.Width,
-           pictureBoxFighter.Height);
-            Draw();
-        }
-        
-
-        /// <summary>
-        /// Обработка нажатия кнопок управления
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void buttonMove_Click(object sender, EventArgs e)
-        {
-            //получаем имя кнопки
-            string name = (sender as Button).Name;
-            switch (name)
+            ColorDialog dialog = new ColorDialog();
+            if (dialog.ShowDialog() == DialogResult.OK)
             {
-                case "buttonUp":
-                    fighter.MoveTransport(Direction.Up);
-                    break;
-                case "buttonDown":
-                    fighter.MoveTransport(Direction.Down);
-                    break;
-                case "buttonLeft":
-                    fighter.MoveTransport(Direction.Left);
-                    break;
-                case "buttonRight":
-                    fighter.MoveTransport(Direction.Right);
-                    break;
+                var fighter = new Plane(11000, 2450, dialog.Color, true, true);
+                int place = hangar + fighter;
+                Draw();
             }
-            Draw();
+        }
+
+        private void buttonTakePlane_Click(object sender, EventArgs e)
+        {
+            if (maskedTextBox1.Text != "")
+            {
+                var fighter = hangar - Convert.ToInt32(maskedTextBox1.Text);
+                if (fighter != null)
+                {
+                    Bitmap bmp = new Bitmap(pictureBoxTakeFighter.Width, pictureBoxTakeFighter.Height);
+                    Graphics gr = Graphics.FromImage(bmp);
+                    fighter.SetPosition(25, 85, pictureBoxTakeFighter.Width, pictureBoxTakeFighter.Height);
+                    fighter.DrawFighter(gr);
+                    pictureBoxTakeFighter.Image = bmp;
+                }
+                else
+                {
+                    Bitmap bmp = new Bitmap(pictureBoxTakeFighter.Width,
+                   pictureBoxTakeFighter.Height);
+                    pictureBoxTakeFighter.Image = bmp;
+                }
+                Draw();
+            }
         }
 
     }

@@ -54,6 +54,7 @@
     <Compile Include="FormFighter.Designer.cs">
       <DependentUpon>FormFighter.cs</DependentUpon>
     </Compile>
+    <Compile Include="Hangar.cs" />
     <Compile Include="IAircraft.cs" />
     <Compile Include="Plane.cs" />
     <Compile Include="Program.cs" />
