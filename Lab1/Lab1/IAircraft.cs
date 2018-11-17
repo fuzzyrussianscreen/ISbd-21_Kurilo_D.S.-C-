@@ -10,7 +10,6 @@ namespace Lab1
     public interface IAircraft
     {
         void SetPosition(int x, int y, int width, int height);
-        void MoveTransport(Direction direction);
         void DrawFighter(Graphics g);
     }
 }

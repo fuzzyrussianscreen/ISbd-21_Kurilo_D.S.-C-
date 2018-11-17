@@ -23,41 +23,6 @@ namespace Lab1
             BackWild = backWild;
         }
 
-        public override void MoveTransport(Direction direction)
-        {
-            float step = MaxSpeed * 100 / Weight;
-            switch (direction)
-            {
-                // вправо
-                case Direction.Right:
-                    if (_startPosX + step < _pictureWidth - planeWidth)
-                    {
-                        _startPosX += step;
-                    }
-                    break;
-                //влево
-                case Direction.Left:
-                    if (_startPosX - step > 0)
-                    {
-                        _startPosX -= step;
-                    }
-                    break;
-                //вверх
-                case Direction.Up:
-                    if (_startPosY - step > 0)
-                    {
-                        _startPosY -= step;
-                    }
-                    break;
-                //вниз
-                case Direction.Down:
-                    if (_startPosY + step < _pictureHeight - planeHeight)
-                    {
-                        _startPosY += step;
-                    }
-                    break;
-            }
-        }
 
         public override void DrawFighter(Graphics g)
         {
