@@ -33,7 +33,6 @@ namespace Lab1
             _pictureHeight = height;
         }
         public abstract void DrawFighter(Graphics g);
-
-        public abstract void MoveTransport(Direction direction);
+        
     }
 }
