@@ -53,5 +53,10 @@ namespace Lab1
             }
 
         }
+
+        public void SetDopColor(Color color)
+        {
+            DopColor = color;
+        }
     }
 }

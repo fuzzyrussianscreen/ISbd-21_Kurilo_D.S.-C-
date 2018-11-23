@@ -11,5 +11,6 @@ namespace Lab1
     {
         void SetPosition(int x, int y, int width, int height);
         void DrawFighter(Graphics g);
+        void SetMainColor(Color color);
     }
 }
