@@ -30,7 +30,6 @@ namespace Lab1
         /// </summary>
         private void InitializeComponent()
         {
-            this.buttonCreateFighter = new System.Windows.Forms.Button();
             this.pictureBoxHangar = new System.Windows.Forms.PictureBox();
             this.pictureBoxTakeFighter = new System.Windows.Forms.PictureBox();
             this.buttonCreateWarPlaner = new System.Windows.Forms.Button();
@@ -43,17 +42,6 @@ namespace Lab1
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTakeFighter)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // buttonCreateFighter
-            // 
-            this.buttonCreateFighter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonCreateFighter.Location = new System.Drawing.Point(1183, 26);
-            this.buttonCreateFighter.Name = "buttonCreateFighter";
-            this.buttonCreateFighter.Size = new System.Drawing.Size(107, 36);
-            this.buttonCreateFighter.TabIndex = 1;
-            this.buttonCreateFighter.Text = "Create Fighter";
-            this.buttonCreateFighter.UseVisualStyleBackColor = true;
-            this.buttonCreateFighter.Click += new System.EventHandler(this.buttonCreateFighter_Click);
             // 
             // pictureBoxHangar
             // 
@@ -139,7 +127,6 @@ namespace Lab1
             this.ClientSize = new System.Drawing.Size(1294, 590);
             this.Controls.Add(this.listBoxLevels);
             this.Controls.Add(this.buttonCreateWarPlaner);
-            this.Controls.Add(this.buttonCreateFighter);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.pictureBoxHangar);
             this.Name = "FormHangar";
@@ -152,9 +139,6 @@ namespace Lab1
         }
 
         #endregion
-
-        //private System.Windows.Forms.PictureBox pictureBoxFighter;
-        private System.Windows.Forms.Button buttonCreateFighter;
         private System.Windows.Forms.Button buttonCreateWarPlaner;
         private PictureBox pictureBoxHangar;
         private GroupBox groupBox1;
