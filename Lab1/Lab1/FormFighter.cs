@@ -12,7 +12,7 @@ namespace Lab1
 {
     public partial class FormHangar : Form
     {
-        
+
         MultiLevelHangar hangar;
         private const int countLevel = 3;
         FormConfig form;
@@ -25,7 +25,7 @@ namespace Lab1
                 listBoxLevels.Items.Add("Уровень " + (i + 1));
             }
             listBoxLevels.SelectedIndex = 0;
-           
+
         }
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace Lab1
                 pictureBoxHangar.Image = bmp;
             }
         }
-        
+
 
         private void buttonCreateWarPlaner_Click(object sender, EventArgs e)
         {
