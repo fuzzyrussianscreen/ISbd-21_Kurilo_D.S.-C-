@@ -12,7 +12,7 @@ namespace Lab1
 {
     public partial class FormHangar : Form
     {
-        
+
         MultiLevelHangar hangar;
         private const int countLevel = 3;
         FormConfig form;
@@ -25,7 +25,7 @@ namespace Lab1
                 listBoxLevels.Items.Add("Уровень " + (i + 1));
             }
             listBoxLevels.SelectedIndex = 0;
-           
+
         }
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace Lab1
                 pictureBoxHangar.Image = bmp;
             }
         }
-        
+
 
         private void buttonCreateWarPlaner_Click(object sender, EventArgs e)
         {
@@ -94,6 +94,42 @@ namespace Lab1
                 {
                     MessageBox.Show("Машину не удалось поставить");
                 }
+            }
+        }
+
+        private void сохранитьToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (saveFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                if (hangar.SaveData(saveFileDialog1.FileName))
+                {
+                    MessageBox.Show("Сохранение прошло успешно", "Результат",
+                   MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Не сохранилось", "Результат", MessageBoxButtons.OK,
+                   MessageBoxIcon.Error);
+                }
+            }
+
+        }
+
+        private void загрузитьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                if (hangar.LoadData(openFileDialog1.FileName))
+                {
+                    MessageBox.Show("Загрузили", "Результат", MessageBoxButtons.OK,
+                   MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Не загрузили", "Результат", MessageBoxButtons.OK,
+                   MessageBoxIcon.Error);
+                }
+                Draw();
             }
         }
     }

@@ -11,8 +11,8 @@ namespace Lab1
     {
         protected const int planeWidth = 120;
         protected const int planeHeight = 120;
-        protected bool MiddleWild { private set; get; }
-        protected bool BackWild { private set; get; }
+        public bool MiddleWild { protected set; get; }
+        public bool BackWild { protected set; get; }
         
         public Plane(int maxSpeed, float weight, Color mainColor, bool middleWild, bool backWild)
         {
@@ -23,6 +23,19 @@ namespace Lab1
             BackWild = backWild;
         }
 
+        public Plane(string info)
+        {
+            string[] strs = info.Split(';');
+            if (strs.Length == 5)
+            {
+                MaxSpeed = Convert.ToInt32(strs[0]);
+                Weight = Convert.ToInt32(strs[1]);
+                MainColor = Color.FromName(strs[2]);
+                DopColor = Color.Green;
+                MiddleWild = Convert.ToBoolean(strs[3]);
+                BackWild = Convert.ToBoolean(strs[4]);
+            }
+        }
 
         public override void DrawFighter(Graphics g)
         {
@@ -61,6 +74,11 @@ namespace Lab1
             g.DrawLine(pen_6, _startPosX + 79, _startPosY + 3, _startPosX + 100, _startPosY);
             
             g.DrawLine(pen_5, _startPosX + 100, _startPosY, _startPosX + 110, _startPosY);
+        }
+
+        public override string ToString()
+        {
+            return MaxSpeed + ";" + Weight + ";" + MainColor.Name + ";" + MiddleWild + ";" + BackWild;
         }
     }
 }
