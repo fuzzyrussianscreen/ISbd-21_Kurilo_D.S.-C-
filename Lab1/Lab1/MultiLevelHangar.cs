@@ -38,7 +38,7 @@ namespace Lab1
             }
         }
 
-        public bool SaveData(string filename)
+        public void SaveData(string filename)
         {
             if (File.Exists(filename))
             {
@@ -54,24 +54,27 @@ namespace Lab1
                         WriteToFile("Level" + Environment.NewLine, fs);
                         for (int i = 0; i < countPlaces; i++)
                         {
-                            var fighter = level[i];
-                            if (fighter != null)
+                            try
                             {
-                                if (fighter.GetType().Name == "Plane")
+                                var fighter = level[i];
+                                if (fighter != null)
                                 {
-                                    WriteToFile(i + ":Plane:", fs);
+                                    if (fighter.GetType().Name == "Plane")
+                                    {
+                                        WriteToFile(i + ":Plane:", fs);
+                                    }
+                                    if (fighter.GetType().Name == "Fighter")
+                                    {
+                                        WriteToFile(i + ":Fighter:", fs);
+                                    }
+                                    WriteToFile(fighter + Environment.NewLine, fs);
                                 }
-                                if (fighter.GetType().Name == "Fighter")
-                                {
-                                    WriteToFile(i + ":Fighter:", fs);
-                                }
-                                WriteToFile(fighter + Environment.NewLine, fs);
                             }
+                            finally { }
                         }
                     }
                 }
             }
-            return true;
         }
 
         private void WriteToFile(string text, FileStream stream)
@@ -80,11 +83,11 @@ namespace Lab1
             stream.Write(info, 0, info.Length);
         }
 
-        public bool LoadData(string filename)
+        public void LoadData(string filename)
         {
             if (!File.Exists(filename))
             {
-                return false;
+                throw new FileNotFoundException();
             }
             string bufferTextFromFile = "";
             using (FileStream fs = new FileStream(filename, FileMode.Open))
@@ -112,7 +115,7 @@ namespace Lab1
             }
             else
             {
-                return false;
+                throw new Exception("Неверный формат файла");
             }
             int counter = -1;
             IAircraft fighter = null;
@@ -138,7 +141,6 @@ namespace Lab1
                 }
                 hangarStages[counter][Convert.ToInt32(strs[i].Split(':')[0])] = fighter;
             }
-            return true;
         }
     }
 }

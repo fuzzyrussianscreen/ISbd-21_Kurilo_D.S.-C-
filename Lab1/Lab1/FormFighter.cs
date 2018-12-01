@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -16,9 +17,13 @@ namespace Lab1
         MultiLevelHangar hangar;
         private const int countLevel = 3;
         FormConfig form;
+        private Logger logger;
         public FormHangar()
         {
             InitializeComponent();
+
+            logger = LogManager.GetCurrentClassLogger();
+
             hangar = new MultiLevelHangar(countLevel, pictureBoxHangar.Width, pictureBoxHangar.Height);
             for (int i = 0; i < countLevel; i++)
             {
@@ -41,8 +46,7 @@ namespace Lab1
                 pictureBoxHangar.Image = bmp;
             }
         }
-
-
+        
         private void buttonCreateWarPlaner_Click(object sender, EventArgs e)
         {
             form = new FormConfig();
@@ -56,22 +60,34 @@ namespace Lab1
             {
                 if (maskedTextBox1.Text != "")
                 {
-                    var fighter = hangar[listBoxLevels.SelectedIndex] - (Convert.ToInt32(maskedTextBox1.Text) - 1);
-                    if (fighter != null)
+                    try
                     {
-                        Bitmap bmp = new Bitmap(pictureBoxTakeFighter.Width, pictureBoxTakeFighter.Height);
-                        Graphics gr = Graphics.FromImage(bmp);
-                        fighter.SetPosition(25, 85, pictureBoxTakeFighter.Width, pictureBoxTakeFighter.Height);
-                        fighter.DrawFighter(gr);
-                        pictureBoxTakeFighter.Image = bmp;
+                        var fighter = hangar[listBoxLevels.SelectedIndex] - (Convert.ToInt32(maskedTextBox1.Text) - 1);
+                        if (fighter != null)
+                        {
+                            Bitmap bmp = new Bitmap(pictureBoxTakeFighter.Width, pictureBoxTakeFighter.Height);
+                            Graphics gr = Graphics.FromImage(bmp);
+                            fighter.SetPosition(25, 85, pictureBoxTakeFighter.Width, pictureBoxTakeFighter.Height);
+                            fighter.DrawFighter(gr);
+                            pictureBoxTakeFighter.Image = bmp;
+                        }
+                        else
+                        {
+                            Bitmap bmp = new Bitmap(pictureBoxTakeFighter.Width,
+                           pictureBoxTakeFighter.Height);
+                            pictureBoxTakeFighter.Image = bmp;
+                        }
+                        Draw();
                     }
-                    else
+                    catch (HangarNotFoundException ex)
                     {
-                        Bitmap bmp = new Bitmap(pictureBoxTakeFighter.Width,
-                       pictureBoxTakeFighter.Height);
-                        pictureBoxTakeFighter.Image = bmp;
+                        MessageBox.Show(ex.Message, "Не найдено", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        Bitmap bmp = new Bitmap(pictureBoxTakeFighter.Width, pictureBoxTakeFighter.Height); pictureBoxTakeFighter.Image = bmp;
                     }
-                    Draw();
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Неизвестная ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
         }
@@ -85,14 +101,22 @@ namespace Lab1
         {
             if (fighter != null && listBoxLevels.SelectedIndex > -1)
             {
-                int place = hangar[listBoxLevels.SelectedIndex] + fighter;
-                if (place > -1)
+                try
                 {
-                    Draw();
+                    int place = hangar[listBoxLevels.SelectedIndex] + fighter;
+                    logger.Info("Добавлен истребитель " + fighter.ToString() + " на место " + place);
+                    if (place > -1)
+                    {
+                        Draw();
+                    }
                 }
-                else
+                catch (HangarOverflowException ex)
                 {
-                    MessageBox.Show("Машину не удалось поставить");
+                    MessageBox.Show(ex.Message, "Переполнение", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Неизвестная ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -101,33 +125,36 @@ namespace Lab1
         {
             if (saveFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                if (hangar.SaveData(saveFileDialog1.FileName))
+                try
                 {
-                    MessageBox.Show("Сохранение прошло успешно", "Результат",
-                   MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    hangar.SaveData(saveFileDialog1.FileName);
+                    MessageBox.Show("Сохранение прошло успешно", "Результат", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    logger.Info("Сохранено в файл " + saveFileDialog1.FileName);
                 }
-                else
+                catch (Exception ex)
                 {
-                    MessageBox.Show("Не сохранилось", "Результат", MessageBoxButtons.OK,
-                   MessageBoxIcon.Error);
+                    MessageBox.Show(ex.Message, "Неизвестная ошибка при сохранении", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-
         }
 
         private void загрузитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                if (hangar.LoadData(openFileDialog1.FileName))
+                try
                 {
-                    MessageBox.Show("Загрузили", "Результат", MessageBoxButtons.OK,
-                   MessageBoxIcon.Information);
+                    hangar.LoadData(openFileDialog1.FileName);
+                    MessageBox.Show("Загрузили", "Результат", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    logger.Info("Загружено из файла " + openFileDialog1.FileName);
                 }
-                else
+                catch (HangarOccupiedPlaceException ex)
                 {
-                    MessageBox.Show("Не загрузили", "Результат", MessageBoxButtons.OK,
-                   MessageBoxIcon.Error);
+                    MessageBox.Show(ex.Message, "Занятое место", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Неизвестная ошибка при сохранении", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 Draw();
             }

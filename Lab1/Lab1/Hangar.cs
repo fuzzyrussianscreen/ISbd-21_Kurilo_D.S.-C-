@@ -33,7 +33,7 @@ namespace Lab1
         {
             if (p._places.Count == p._maxCount)
             {
-                return -1;
+                throw new HangarOverflowException();
             }
             for (int i = 0; i < p._maxCount; i++)
             {
@@ -55,7 +55,7 @@ namespace Lab1
                 p._places.Remove(index);
                 return fighter;
             }
-            return null;
+            throw new HangarNotFoundException(index);
         }
 
         private bool CheckFreePlace(int index)
@@ -100,8 +100,10 @@ namespace Lab1
                 if (_places.ContainsKey(ind))
                 {
                     return _places[ind];
+                }else
+                {
+                    return null;
                 }
-                return null;
             }
             set
             {
@@ -109,6 +111,10 @@ namespace Lab1
                 {
                     _places.Add(ind, value);
                     _places[ind].SetPosition(5 + ind / 4 * _placeSizeWidth + 15, ind % 4 * _placeSizeHeight + 60, PictureWidth, PictureHeight);
+                }
+                else
+                {
+                    throw new HangarOccupiedPlaceException(ind);
                 }
             }
         }
