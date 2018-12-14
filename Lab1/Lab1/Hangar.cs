@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Lab1
 {
-    class Hangar<T> where T : class, IAircraft
+    class Hangar<T> : IEnumerator<T>, IEnumerable<T>, IComparable<Hangar<T>> where T : class, IAircraft
     {
         private Dictionary<int, T> _places;
 
@@ -21,6 +22,7 @@ namespace Lab1
 
         private int _placeSizeHeight = 120;
 
+        private int _currentIndex;
         public Hangar(int sizes, int pictureWidth, int pictureHeight)
         {
             _maxCount = sizes;
@@ -34,6 +36,10 @@ namespace Lab1
             if (p._places.Count == p._maxCount)
             {
                 throw new HangarOverflowException();
+            }
+            if (p._places.ContainsValue(fighter))
+            {
+                throw new ParkingAlreadyHaveException();
             }
             for (int i = 0; i < p._maxCount; i++)
             {
@@ -100,7 +106,8 @@ namespace Lab1
                 if (_places.ContainsKey(ind))
                 {
                     return _places[ind];
-                }else
+                }
+                else
                 {
                     return null;
                 }
@@ -117,6 +124,90 @@ namespace Lab1
                     throw new HangarOccupiedPlaceException(ind);
                 }
             }
+        }
+
+        public T Current
+        {
+            get
+            {
+                return _places[_places.Keys.ToList()[_currentIndex]];
+            }
+        }
+
+        object IEnumerator.Current
+        {
+            get
+            {
+                return Current;
+            }
+        }
+
+        public void Dispose()
+        {
+            _places.Clear();
+        }
+
+        public bool MoveNext()
+        {
+            if (_currentIndex + 1 >= _places.Count)
+            {
+                Reset();
+                return false;
+            }
+            _currentIndex++;
+            return true;
+        }
+
+        public void Reset()
+        {
+            _currentIndex = -1;
+        }
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            return this;
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        public int CompareTo(Hangar<T> other)
+        {
+            if (_places.Count > other._places.Count)
+            {
+                return -1;
+            }
+            else if (_places.Count < other._places.Count)
+            {
+                return 1;
+            }
+            else if (_places.Count > 0)
+            {
+                var thisKeys = _places.Keys.ToList();
+                var otherKeys = other._places.Keys.ToList();
+                for (int i = 0; i < _places.Count; ++i)
+                {
+                    if (_places[thisKeys[i]] is Plane && other._places[thisKeys[i]] is Fighter)
+                    {
+                        return 1;
+                    }
+                    if (_places[thisKeys[i]] is Fighter && other._places[thisKeys[i]] is Plane)
+                    {
+                        return -1;
+                    }
+                    if (_places[thisKeys[i]] is Plane && other._places[thisKeys[i]] is Plane)
+                    {
+                        return (_places[thisKeys[i]] is Plane).CompareTo(other._places[thisKeys[i]] is Plane);
+                    }
+                    if (_places[thisKeys[i]] is Fighter && other._places[thisKeys[i]] is Fighter)
+                    {
+                        return (_places[thisKeys[i]] is Fighter).CompareTo(other._places[thisKeys[i]] is Fighter);
+                    }
+                }
+            }
+            return 0;
         }
     }
 }

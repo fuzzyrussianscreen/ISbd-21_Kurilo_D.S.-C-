@@ -46,32 +46,29 @@ namespace Lab1
             }
             using (FileStream fs = new FileStream(filename, FileMode.Create))
             {
-                using (BufferedStream bs = new BufferedStream(fs))
+                WriteToFile("CountLeveles:" + hangarStages.Count + Environment.NewLine, fs);
+                foreach (var level in hangarStages)
                 {
-                    WriteToFile("CountLeveles:" + hangarStages.Count + Environment.NewLine, fs);
-                    foreach (var level in hangarStages)
+                    WriteToFile("Level" + Environment.NewLine, fs);
+                    for (int i = 0; i < countPlaces; i++)
                     {
-                        WriteToFile("Level" + Environment.NewLine, fs);
-                        for (int i = 0; i < countPlaces; i++)
+                        try
                         {
-                            try
+                            var fighter = level[i];
+                            if (fighter != null)
                             {
-                                var fighter = level[i];
-                                if (fighter != null)
+                                if (fighter.GetType().Name == "Plane")
                                 {
-                                    if (fighter.GetType().Name == "Plane")
-                                    {
-                                        WriteToFile(i + ":Plane:", fs);
-                                    }
-                                    if (fighter.GetType().Name == "Fighter")
-                                    {
-                                        WriteToFile(i + ":Fighter:", fs);
-                                    }
-                                    WriteToFile(fighter + Environment.NewLine, fs);
+                                    WriteToFile(i + ":Plane:", fs);
                                 }
+                                if (fighter.GetType().Name == "Fighter")
+                                {
+                                    WriteToFile(i + ":Fighter:", fs);
+                                }
+                                WriteToFile(fighter + Environment.NewLine, fs);
                             }
-                            finally { }
                         }
+                        finally { }
                     }
                 }
             }
@@ -92,14 +89,11 @@ namespace Lab1
             string bufferTextFromFile = "";
             using (FileStream fs = new FileStream(filename, FileMode.Open))
             {
-                using (BufferedStream bs = new BufferedStream(fs))
+                byte[] b = new byte[fs.Length];
+                UTF8Encoding temp = new UTF8Encoding(true);
+                while (fs.Read(b, 0, b.Length) > 0)
                 {
-                    byte[] b = new byte[fs.Length];
-                    UTF8Encoding temp = new UTF8Encoding(true);
-                    while (bs.Read(b, 0, b.Length) > 0)
-                    {
-                        bufferTextFromFile += temp.GetString(b);
-                    }
+                    bufferTextFromFile += temp.GetString(b);
                 }
             }
             bufferTextFromFile = bufferTextFromFile.Replace("\r", "");
@@ -141,6 +135,11 @@ namespace Lab1
                 }
                 hangarStages[counter][Convert.ToInt32(strs[i].Split(':')[0])] = fighter;
             }
+        }
+
+        public void Sort()
+        {
+            hangarStages.Sort();
         }
     }
 }

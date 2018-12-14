@@ -159,5 +159,12 @@ namespace Lab1
                 Draw();
             }
         }
+
+        private void Sort_Click(object sender, EventArgs e)
+        {
+            hangar.Sort();
+            Draw();
+            logger.Info("Сортировка уровней");
+        }
     }
 }
