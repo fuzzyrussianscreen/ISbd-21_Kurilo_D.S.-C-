@@ -83,29 +83,10 @@ namespace Lab1
 
         public int CompareTo(Fighter other)
         {
-            if (MaxSpeed != other.MaxSpeed)
+            var res = (this is Plane).CompareTo(other is Plane);
+            if (res != 0)
             {
-                return MaxSpeed.CompareTo(other.MaxSpeed);
-            }
-            if (Weight != other.Weight)
-            {
-                return Weight.CompareTo(other.Weight);
-            }
-            if (MainColor != other.MainColor)
-            {
-                MainColor.Name.CompareTo(other.MainColor.Name);
-            }
-            if (DopColor != other.DopColor)
-            {
-                DopColor.Name.CompareTo(other.DopColor.Name);
-            }
-            if (MiddleWild != other.MiddleWild)
-            {
-                return MiddleWild.CompareTo(other.MiddleWild);
-            }
-            if (BackWild != other.BackWild)
-            {
-                return BackWild.CompareTo(other.BackWild);
+                return res;
             }
             if (FrontWild != other.FrontWild)
             {
@@ -124,31 +105,12 @@ namespace Lab1
         
         public bool Equals(Fighter other)
         {
+            var res = (this as Plane).Equals(other as Plane);
+            if (!res)
+            {
+                return res;
+            }
             if (GetType().Name != other.GetType().Name)
-            {
-                return false;
-            }
-            if (MaxSpeed != other.MaxSpeed)
-            {
-                return false;
-            }
-            if (Weight != other.Weight)
-            {
-                return false;
-            }
-            if (MainColor != other.MainColor)
-            {
-                return false;
-            }
-            if (DopColor != other.DopColor)
-            {
-                return false;
-            }
-            if (MiddleWild != other.MiddleWild)
-            {
-                return false;
-            }
-            if (BackWild != other.BackWild)
             {
                 return false;
             }

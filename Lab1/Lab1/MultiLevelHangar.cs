@@ -52,23 +52,18 @@ namespace Lab1
                     WriteToFile("Level" + Environment.NewLine, fs);
                     for (int i = 0; i < countPlaces; i++)
                     {
-                        try
+                        foreach (IAircraft fighter in level)
                         {
-                            var fighter = level[i];
-                            if (fighter != null)
+                            if (fighter.GetType().Name == "Plane")
                             {
-                                if (fighter.GetType().Name == "Plane")
-                                {
-                                    WriteToFile(i + ":Plane:", fs);
-                                }
-                                if (fighter.GetType().Name == "Fighter")
-                                {
-                                    WriteToFile(i + ":Fighter:", fs);
-                                }
-                                WriteToFile(fighter + Environment.NewLine, fs);
+                                WriteToFile(i + ":Plane:", fs);
                             }
+                            if (fighter.GetType().Name == "Fighter")
+                            {
+                                WriteToFile(i + ":Fighter:", fs);
+                            }
+                            WriteToFile(fighter + Environment.NewLine, fs);
                         }
-                        finally { }
                     }
                 }
             }
