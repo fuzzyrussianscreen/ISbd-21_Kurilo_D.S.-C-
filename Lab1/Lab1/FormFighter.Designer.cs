@@ -50,6 +50,7 @@ namespace Lab1
             this.maskedTextBox1 = new System.Windows.Forms.MaskedTextBox();
             this.buttonTakeCar = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.Sort = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxHangar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxParking)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -160,14 +161,14 @@ namespace Lab1
             // сохранитьToolStripMenuItem
             // 
             this.сохранитьToolStripMenuItem.Name = "сохранитьToolStripMenuItem";
-            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(158, 26);
             this.сохранитьToolStripMenuItem.Text = "Сохранить";
             this.сохранитьToolStripMenuItem.Click += new System.EventHandler(this.сохранитьToolStripMenuItem1_Click);
             // 
             // загрузитьToolStripMenuItem
             // 
             this.загрузитьToolStripMenuItem.Name = "загрузитьToolStripMenuItem";
-            this.загрузитьToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.загрузитьToolStripMenuItem.Size = new System.Drawing.Size(158, 26);
             this.загрузитьToolStripMenuItem.Text = "Загрузить";
             this.загрузитьToolStripMenuItem.Click += new System.EventHandler(this.загрузитьToolStripMenuItem_Click);
             // 
@@ -228,9 +229,20 @@ namespace Lab1
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Take plane";
             // 
+            // Sort
+            // 
+            this.Sort.Location = new System.Drawing.Point(1190, 31);
+            this.Sort.Name = "Sort";
+            this.Sort.Size = new System.Drawing.Size(83, 31);
+            this.Sort.TabIndex = 16;
+            this.Sort.Text = "Sort";
+            this.Sort.UseVisualStyleBackColor = true;
+            this.Sort.Click += new System.EventHandler(this.Sort_Click);
+            // 
             // FormHangar
             // 
             this.ClientSize = new System.Drawing.Size(1294, 590);
+            this.Controls.Add(this.Sort);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.listBoxLevels);
             this.Controls.Add(this.pictureBox2);
@@ -275,6 +287,7 @@ namespace Lab1
         private MaskedTextBox maskedTextBox1;
         private Button buttonTakeCar;
         private GroupBox groupBox3;
+        private Button Sort;
     }
 }
 

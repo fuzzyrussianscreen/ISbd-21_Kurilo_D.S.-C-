@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace Lab1
 {
-    public class Plane : War_plane
+    public class Plane : War_plane, IComparable<Plane>, IEquatable<Plane>
     {
         protected const int planeWidth = 120;
         protected const int planeHeight = 120;
         public bool MiddleWild { protected set; get; }
         public bool BackWild { protected set; get; }
-        
+
         public Plane(int maxSpeed, float weight, Color mainColor, bool middleWild, bool backWild)
         {
             MaxSpeed = maxSpeed;
@@ -39,7 +39,7 @@ namespace Lab1
 
         public override void DrawFighter(Graphics g)
         {
-            
+
             Pen pen_18 = new Pen(DopColor, 16);
             Pen pen_8 = new Pen(Color.Green, 8);
             Pen pen_5 = new Pen(Color.Green, 5);
@@ -59,7 +59,7 @@ namespace Lab1
                 g.DrawLine(pen_8, _startPosX + 4, _startPosY + 5, _startPosX, _startPosY + 20);
                 g.DrawLine(pen_8, _startPosX + 14, _startPosY + 5, _startPosX, _startPosY + 20);
             }
-            
+
             if (MiddleWild)
             {
                 g.DrawLine(pen_8, _startPosX + 24, _startPosY - 5, _startPosX + 22, _startPosY - 50);
@@ -72,13 +72,105 @@ namespace Lab1
             g.FillRectangle(spoiler, _startPosX, _startPosY - 6, 80, 12);
             g.DrawLine(pen_6, _startPosX + 79, _startPosY - 3, _startPosX + 100, _startPosY);
             g.DrawLine(pen_6, _startPosX + 79, _startPosY + 3, _startPosX + 100, _startPosY);
-            
+
             g.DrawLine(pen_5, _startPosX + 100, _startPosY, _startPosX + 110, _startPosY);
         }
 
         public override string ToString()
         {
             return MaxSpeed + ";" + Weight + ";" + MainColor.Name + ";" + MiddleWild + ";" + BackWild;
+        }
+
+        public int CompareTo(Plane other)
+        {
+            if (other == null)
+            {
+                return 1;
+            }
+            if (MaxSpeed != other.MaxSpeed)
+            {
+                return MaxSpeed.CompareTo(other.MaxSpeed);
+            }
+            if (Weight != other.Weight)
+            {
+                return Weight.CompareTo(other.Weight);
+            }
+            if (MainColor != other.MainColor)
+            {
+                MainColor.Name.CompareTo(other.MainColor.Name);
+            }
+            if (DopColor != other.DopColor)
+            {
+                DopColor.Name.CompareTo(other.DopColor.Name);
+            }
+            if (MiddleWild != other.MiddleWild)
+            {
+                return MiddleWild.CompareTo(other.MiddleWild);
+            }
+            if (BackWild != other.BackWild)
+            {
+                return BackWild.CompareTo(other.BackWild);
+            }
+            return 0;
+        }
+
+        public bool Equals(Plane other)
+        {
+            if (other == null)
+            {
+                return false;
+            }
+            if (GetType().Name != other.GetType().Name)
+            {
+                return false;
+            }
+            if (MaxSpeed != other.MaxSpeed)
+            {
+                return false;
+            }
+            if (Weight != other.Weight)
+            {
+                return false;
+            }
+            if (MainColor != other.MainColor)
+            {
+                return false;
+            }
+            if (DopColor != other.DopColor)
+            {
+                return false;
+            }
+            if (MiddleWild != other.MiddleWild)
+            {
+                return false;
+            }
+            if (BackWild != other.BackWild)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public override bool Equals(Object obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+            Plane planeObj = obj as Plane;
+            if (planeObj == null)
+            {
+                return false;
+            }
+            else
+            {
+                return Equals(planeObj);
+            }
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
     }
 }
